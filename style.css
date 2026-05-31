@@ -1,0 +1,3372 @@
+/* =====================================================
+   STYLE.CSS — БАЗА + ФОН + ЛАМПА + ФОРМА
+   ===================================================== */
+
+:root{
+    --bg:#050506;
+    --bg-soft:#0e0c12;
+
+    --card:#1c1722;
+    --card-2:#241d2e;
+
+    --gold:#ffbc6e;
+    --gold-2:#ff9d4a;
+    --gold-3:#ffd59a;
+
+    --text:#fff5e8;
+    --text-soft:#d7c7b6;
+
+    --border:rgba(255,200,120,.28);
+
+    --shadow:
+        0 20px 60px rgba(0,0,0,.55);
+
+    --radius:34px;
+
+    --transition:
+        .35s cubic-bezier(.22,.61,.36,1);
+}
+
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    height:100%;
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100dvh;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,170,60,.08), transparent 30%),
+        radial-gradient(circle at 80% 25%, rgba(255,140,50,.06), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(255,180,90,.06), transparent 45%),
+        #000;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow:hidden;
+    position:relative;
+}
+
+/* =====================================================
+   GPU OPTIMIZATION
+   ===================================================== */
+
+.lamp-svg-container,
+.login-card,
+.story-card,
+.particle,
+.spark{
+    transform:translateZ(0);
+    backface-visibility:hidden;
+    will-change:transform,opacity;
+}
+
+/* =====================================================
+   BACKGROUND GLOW
+   ===================================================== */
+
+.background-glow{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+}
+
+.background-glow::before{
+    content:"";
+    position:absolute;
+    width:800px;
+    height:800px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,170,70,.12),
+            rgba(255,170,70,.04) 40%,
+            transparent 75%
+        );
+    filter:blur(60px);
+}
+
+/* =====================================================
+   MAIN WRAPPER
+   ===================================================== */
+
+.wrapper{
+    position:relative;
+    z-index:10;
+
+    width:100%;
+    min-height:100dvh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:80px;
+
+    padding:40px;
+
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
+
+.wrapper.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+/* =====================================================
+   LEFT SIDE
+   ===================================================== */
+
+.lamp-area{
+    flex:1;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+
+.lamp-scene{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.lamp-svg-container{
+    width:420px;
+    max-width:85vw;
+    position:relative;
+    z-index:10;
+    user-select:none;
+}
+
+.lamp-svg-container svg{
+    display:block;
+    width:100%;
+    height:auto;
+
+    filter:
+        drop-shadow(0 20px 30px rgba(0,0,0,.45));
+}
+
+/* =====================================================
+   LAMP GLOW WHEN ACTIVE
+   ===================================================== */
+
+.lamp-svg-container.active{
+    filter:
+        drop-shadow(0 0 40px rgba(255,190,100,.25))
+        drop-shadow(0 0 80px rgba(255,190,100,.18));
+}
+
+.rope-handle{
+    cursor:grab;
+    transform-origin:center top;
+}
+
+.rope-handle:active{
+    cursor:grabbing;
+}
+
+/* =====================================================
+   RIGHT SIDE
+   ===================================================== */
+
+.card-area{
+    flex:1;
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+}
+
+/* =====================================================
+   LOGIN CARD
+   ===================================================== */
+
+.login-card{
+    position:relative;
+
+    width:420px;
+    max-width:92vw;
+
+    padding:38px;
+
+    border-radius:36px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,27,42,.94),
+            rgba(20,17,26,.94)
+        );
+
+    backdrop-filter:blur(22px);
+
+    border:
+        1px solid rgba(255,210,160,.15);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:
+        translateX(50px)
+        scale(.95);
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease,
+        visibility .6s ease;
+}
+
+.login-card.active{
+    opacity:1;
+    visibility:visible;
+
+    transform:
+        translateX(0)
+        scale(1);
+}
+
+.login-card.hide{
+    opacity:0;
+    transform:scale(.92);
+}
+
+/* =====================================================
+   CARD OUTER GLOW
+   ===================================================== */
+
+.login-card::before{
+    content:"";
+
+    position:absolute;
+    inset:-2px;
+
+    border-radius:40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,190,90,.35),
+            transparent,
+            rgba(255,170,80,.25)
+        );
+
+    z-index:-1;
+
+    opacity:0;
+
+    transition:.5s;
+}
+
+.login-card.active::before{
+    opacity:1;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.greeting-icon{
+    font-size:3rem;
+    text-align:center;
+    margin-bottom:12px;
+
+    animation:
+        lampPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes lampPulse{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+.login-card h1{
+    text-align:center;
+
+    font-size:1.9rem;
+    font-weight:800;
+
+    margin-bottom:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe3bc,
+            #ffbe7a
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.subtitle{
+    text-align:center;
+
+    color:var(--text-soft);
+
+    line-height:1.6;
+
+    margin-bottom:28px;
+
+    font-size:.96rem;
+}
+
+/* =====================================================
+   FORM
+   ===================================================== */
+
+.input-group{
+    margin-bottom:20px;
+}
+
+.input-group label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#ffdeb7;
+
+    font-size:.92rem;
+    font-weight:600;
+}
+
+.input-group input{
+    width:100%;
+
+    border:none;
+    outline:none;
+
+    padding:14px 18px;
+
+    border-radius:999px;
+
+    color:var(--text);
+
+    font-size:1rem;
+
+    background:
+        rgba(10,10,12,.65);
+
+    border:
+        1px solid rgba(255,200,120,.22);
+
+    transition:var(--transition);
+}
+
+.input-group input::placeholder{
+    color:#8f7b68;
+}
+
+.input-group input:focus{
+    border-color:rgba(255,190,90,.8);
+
+    box-shadow:
+        0 0 0 4px rgba(255,180,80,.12),
+        0 0 25px rgba(255,180,80,.15);
+
+    transform:translateY(-1px);
+}
+
+/* =====================================================
+   BUTTON
+   ===================================================== */
+
+.signin-btn{
+    width:100%;
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:999px;
+
+    padding:15px 20px;
+
+    font-size:1.05rem;
+    font-weight:700;
+
+    color:#2d1e12;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold),
+            var(--gold-2)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(255,140,60,.22);
+
+    transition:var(--transition);
+
+    position:relative;
+    overflow:hidden;
+}
+
+.signin-btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:120%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.4),
+            transparent
+        );
+
+    transition:.6s;
+}
+
+.signin-btn:hover::before{
+    left:120%;
+}
+
+.signin-btn:hover{
+    transform:
+        translateY(-2px)
+        scale(1.01);
+
+    box-shadow:
+        0 18px 35px rgba(255,140,60,.35);
+}
+
+.signin-btn:active{
+    transform:scale(.98);
+}
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+.form-message{
+    min-height:28px;
+
+    margin-top:16px;
+
+    text-align:center;
+    color:#ffd3a1;
+
+    font-size:.9rem;
+
+    font-weight:500;
+}
+
+/* =====================================================
+   PARTICLES CONTAINERS
+   ===================================================== */
+
+.light-particles,
+.sparkles-overlay,
+.magic-trail{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+}
+
+.light-particles{
+    z-index:2;
+}
+
+.sparkles-overlay{
+    z-index:3;
+}
+
+.magic-trail{
+    z-index:1;
+}
+
+/* =====================================================
+   ВЗРЫВ ЗОЛОТЫХ КОЛЕЦ
+   ===================================================== */
+
+.magic-ring{
+    position:fixed;
+    left:50%;
+    top:50%;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:4px solid #ffd27a;
+    transform:translate(-50%,-50%) scale(.2);
+    animation:ringBoom 1.5s ease-out forwards;
+    pointer-events:none;
+}
+
+@keyframes ringBoom{
+    from{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(.2);
+    }
+    to{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(15);
+    }
+}
+
+/* =====================================================
+   КАРТОЧКИ ИСТОРИИ + АНИМАЦИИ
+   ===================================================== */
+
+/* =====================================================
+   CONTAINER
+   ===================================================== */
+
+.cards-show{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:0;
+    transition:opacity .8s ease;
+}
+
+/* =====================================================
+   BASE CARD
+   ===================================================== */
+
+.story-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 560px;
+    max-width: 88vw;
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0;
+    background: linear-gradient(135deg, rgba(40,30,55,.98), rgba(25,20,40,.98));
+    backdrop-filter: blur(25px);
+    border-radius: 60px;
+    padding: 3rem 2.8rem;
+    text-align: center;
+    border: 2px solid rgba(255,200,120,.6);
+    box-shadow: 0 30px 60px rgba(0,0,0,.6);
+    will-change: transform, opacity;
+    pointer-events: none;
+}
+
+.story-card.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.story-card.exit {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+    pointer-events: none;
+}
+
+/* =====================================================
+   GLOW
+   ===================================================== */
+
+.card-glow{
+    position:absolute;
+    width:220%;
+    height:220%;
+    left:-60%;
+    top:-60%;
+    pointer-events:none;
+    opacity:0;
+    background: radial-gradient(circle, rgba(255,185,90,.18), transparent 60%);
+}
+
+.story-card.active .card-glow{
+    opacity:1;
+    animation:rotateGlow 12s linear infinite;
+}
+
+@keyframes rotateGlow{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+}
+
+/* =====================================================
+   BORDER
+   ===================================================== */
+
+.card-border{
+    position:absolute;
+    inset:0;
+    border-radius:48px;
+    border: 2px solid rgba(255,195,120,.35);
+    pointer-events:none;
+}
+
+.story-card.active .card-border{
+    animation:borderPulse 3s ease-in-out infinite;
+}
+
+@keyframes borderPulse{
+    0%,100%{ opacity:.45; box-shadow:none; }
+    50%{ opacity:1; box-shadow:0 0 35px rgba(255,180,80,.18); }
+}
+
+/* =====================================================
+   CONTENT
+   ===================================================== */
+
+.card-content{
+    position:relative;
+    z-index:10;
+}
+
+.card-icon{
+    font-size:4rem;
+    margin-bottom:18px;
+    display:inline-block;
+}
+
+.story-card.active .card-icon{
+    animation:iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-10px) rotate(4deg); }
+}
+
+.card-content h2{
+    font-size:2rem;
+    margin-bottom:14px;
+    font-weight:800;
+    background: linear-gradient(135deg, #fff2d8, #ffc78c);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.card-content p{
+    color:#fff5eb;
+    font-size:1.35rem;
+    line-height:1.7;
+    font-weight:600;
+}
+
+/* =====================================================
+   CARD 1
+   ===================================================== */
+
+.card-1 {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(200px) scale(0.2) rotate(-720deg);
+}
+
+.card-1.active {
+    animation: goldenPortal 1.8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes goldenPortal {
+    0%{
+        opacity:0;
+        filter:blur(25px);
+        transform: translate(-50%, -50%) translateY(200px) scale(.2) rotate(-720deg);
+    }
+    55%{
+        opacity:1;
+        filter:blur(0);
+        transform: translate(-50%, -50%) translateY(-20px) scale(1.08) rotate(20deg);
+    }
+    75%{
+        transform: translate(-50%, -50%) translateY(8px) scale(.98) rotate(-6deg);
+    }
+    100%{
+        opacity:1;
+        transform: translate(-50%, -50%) translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+.card-1.exit{
+    animation: vortexExit 1s cubic-bezier(.68,-0.55,.265,1.55) forwards;
+}
+
+@keyframes vortexExit{
+    from{
+        opacity:1;
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    }
+    to{
+        opacity:0;
+        filter:blur(25px);
+        transform: translate(-50%, -50%) translateY(-160vh) rotate(540deg) scale(.2);
+    }
+}
+
+/* =====================================================
+   CARD 2
+   ===================================================== */
+
+.card-2 {
+    opacity:0;
+    transform: translate(-50%, -50%) perspective(1200px) rotateY(90deg) scale(.4);
+}
+
+.card-2.active {
+    animation: spaceFold 1.4s ease forwards;
+}
+
+@keyframes spaceFold {
+    0%{
+        opacity:0;
+        filter:blur(15px);
+        transform: translate(-50%, -50%) perspective(1200px) rotateY(90deg) scale(.4);
+    }
+    60%{
+        opacity:1;
+        filter:blur(0);
+        transform: translate(-50%, -50%) perspective(1200px) rotateY(-10deg) scale(1.05);
+    }
+    100%{
+        opacity:1;
+        transform: translate(-50%, -50%) perspective(1200px) rotateY(0deg) scale(1);
+    }
+}
+
+.card-2.exit{
+    animation: rippleExit .9s ease forwards;
+}
+
+@keyframes rippleExit{
+    from{
+        opacity:1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to{
+        opacity:0;
+        transform: translate(-50%, -50%) scale(0) rotate(180deg);
+    }
+}
+
+/* =====================================================
+   CARD 3
+   ===================================================== */
+
+.card-3 {
+    opacity:0;
+    transform: translate(-50%, -50%) scale(2.5) rotate(35deg);
+}
+
+.card-3.active {
+    animation: stardustReveal 1.6s ease forwards;
+}
+
+@keyframes stardustReveal {
+    0%{
+        opacity:0;
+        filter: blur(30px) brightness(3);
+        transform: translate(-50%, -50%) scale(2.5) rotate(35deg);
+    }
+    40%{
+        opacity:.8;
+        filter: blur(5px) brightness(1.5);
+        transform: translate(-50%, -50%) scale(1.2) rotate(-10deg);
+    }
+    100%{
+        opacity:1;
+        filter:none;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+}
+
+.card-3.exit{
+    animation: magicShrink .8s ease forwards;
+}
+
+@keyframes magicShrink{
+    from{
+        opacity:1;
+        transform: translate(-50%, -50%) scale(1) rotate(0);
+    }
+    to{
+        opacity:0;
+        filter:blur(12px);
+        transform: translate(-50%, -50%) scale(0) rotate(-50deg);
+    }
+}
+
+/* =====================================================
+   AURA
+   ===================================================== */
+
+.story-card::after{
+    content:"";
+    position:absolute;
+    inset:-120px;
+    background: conic-gradient(transparent, rgba(255,210,120,.8), transparent, rgba(255,170,80,.8), transparent);
+    opacity:0;
+    border-radius:50%;
+    filter:blur(40px);
+    pointer-events:none;
+}
+
+.story-card.active::after{
+    animation: divineAura 4s linear infinite;
+}
+
+@keyframes divineAura{
+    from{ opacity:.7; transform:rotate(0deg); }
+    to{ opacity:.7; transform:rotate(360deg); }
+}
+
+.story-card::before{
+    content:"";
+    position:absolute;
+    inset:-60px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(255,190,100,.25), transparent 70%);
+    opacity:0;
+    pointer-events:none;
+}
+
+.story-card.active::before{
+    animation: magicRing 1.4s ease forwards;
+}
+
+@keyframes magicRing{
+    0%{ opacity:0; transform:scale(.2); }
+    40%{ opacity:1; }
+    100%{ opacity:0; transform:scale(1.8); }
+}
+
+/* =====================================================
+   READY BUTTON — БЕЗ АНИМИРОВАННОЙ ПОЛОСКИ
+   ===================================================== */
+
+.ready-btn {
+    margin-top: 28px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+    padding: 16px 42px;
+    border-radius: 999px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #2f1f12;
+    background: linear-gradient(135deg, #ffbe6b, #ff9242);
+    transition: .35s;
+}
+
+.ready-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.ready-btn:active {
+    transform: scale(.97);
+}
+
+/* =====================================================
+   FLOATING HEARTS
+   ===================================================== */
+
+.floating-hearts,
+.floating-stars,
+.floating-sparkles{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    border-radius:48px;
+    pointer-events:none;
+}
+
+.floating-hearts::before,
+.floating-hearts::after{
+    content:"❤️";
+    position:absolute;
+    font-size:1.2rem;
+    animation: floatHeart 3s ease-in-out infinite;
+}
+
+.floating-hearts::before{
+    left:12%;
+    top:18%;
+}
+
+.floating-hearts::after{
+    right:10%;
+    bottom:15%;
+    animation-delay:1.5s;
+}
+
+@keyframes floatHeart{
+    0%,100%{
+        opacity:.5;
+        transform:translateY(0) scale(1);
+    }
+    50%{
+        opacity:1;
+        transform:translateY(-18px) scale(1.25);
+    }
+}
+
+/* =====================================================
+   FLOATING STARS
+   ===================================================== */
+
+.floating-stars::before,
+.floating-stars::after{
+    content:"⭐";
+    position:absolute;
+    font-size:1.3rem;
+    animation: floatStar 3s ease-in-out infinite;
+}
+
+.floating-stars::before{
+    right:14%;
+    top:20%;
+}
+
+.floating-stars::after{
+    left:12%;
+    bottom:18%;
+    animation-delay:1.4s;
+}
+
+@keyframes floatStar{
+    0%,100%{
+        opacity:.5;
+        transform:translate(0,0) rotate(0deg);
+    }
+    50%{
+        opacity:1;
+        transform:translate(12px,-14px) rotate(180deg);
+    }
+}
+
+/* =====================================================
+   FLOATING SPARKLES
+   ===================================================== */
+
+.floating-sparkles::before,
+.floating-sparkles::after{
+    content:"✨";
+    position:absolute;
+    font-size:1.4rem;
+    animation: floatSparkle 2.4s ease-in-out infinite;
+}
+
+.floating-sparkles::before{
+    left:14%;
+    top:14%;
+}
+
+.floating-sparkles::after{
+    right:14%;
+    bottom:14%;
+    animation-delay:1.2s;
+}
+
+@keyframes floatSparkle{
+    0%,100%{
+        opacity:.5;
+        transform:scale(.9) translateY(0);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.25) translateY(-10px);
+    }
+}
+
+/* =====================================================
+   ЧАСТИЦЫ + ФИНАЛЬНЫЙ ЭКРАН + АДАПТИВ
+   ===================================================== */
+
+/* =====================================================
+   PARTICLES
+   ===================================================== */
+
+.particle{
+    position:absolute;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(255,230,170,.95), rgba(255,180,80,.55), transparent);
+    opacity:0;
+    animation: particleFloat linear forwards;
+}
+
+@keyframes particleFloat{
+    0%{
+        opacity:0;
+        transform:translateY(0) scale(.3) rotate(0deg);
+    }
+    15%{
+        opacity:.9;
+    }
+    80%{
+        opacity:.4;
+    }
+    100%{
+        opacity:0;
+        transform:translateY(-220px) scale(1.4) rotate(180deg);
+    }
+}
+
+/* =====================================================
+   MAGIC SPARKS
+   ===================================================== */
+
+.spark{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background: radial-gradient(circle, #fff6d9, #ffbf6b, #ff9440);
+    box-shadow: 0 0 12px rgba(255,190,90,.8);
+    animation: sparkFly 1.25s ease-out forwards;
+}
+
+@keyframes sparkFly{
+    0%{
+        opacity:1;
+        transform:translate(0,0) scale(0);
+    }
+    25%{
+        opacity:1;
+        transform:translate(calc(var(--tx) * .25), calc(var(--ty) * .25)) scale(1.7);
+    }
+    100%{
+        opacity:0;
+        transform:translate(var(--tx), var(--ty)) scale(0);
+    }
+}
+
+/* =====================================================
+   MAGIC TRAIL
+   ===================================================== */
+
+.trail-dot{
+    position:absolute;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    pointer-events:none;
+    background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,190,100,.8), transparent);
+    animation: trailFade .9s ease-out forwards;
+}
+
+@keyframes trailFade{
+    from{
+        opacity:1;
+        transform:scale(1);
+    }
+    to{
+        opacity:0;
+        transform:scale(2.4);
+    }
+}
+
+/* =====================================================
+   FINAL SCREEN
+   ===================================================== */
+
+.final-screen{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: radial-gradient(circle at center, rgba(255,185,90,.08), rgba(0,0,0,.88));
+    backdrop-filter:blur(14px);
+    z-index:300;
+    opacity:0;
+    visibility:hidden;
+    transition: opacity .8s ease, visibility .8s ease;
+}
+
+.final-screen.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* =====================================================
+   FINAL CARD
+   ===================================================== */
+
+.final-card{
+    width:650px;
+    max-width:92vw;
+    padding:60px 40px;
+    border-radius:44px;
+    text-align:center;
+    position:relative;
+    background: linear-gradient(145deg, rgba(40,30,52,.98), rgba(18,15,24,.98));
+    border: 1px solid rgba(255,210,150,.25);
+    box-shadow: 0 40px 120px rgba(0,0,0,.7);
+    transform: translateY(30px) scale(.95);
+    transition: transform .8s ease;
+}
+
+.final-screen.active .final-card{
+    transform: translateY(0) scale(1);
+}
+
+/* =====================================================
+   FINAL GLOW
+   ===================================================== */
+
+.final-card::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:46px;
+    background: linear-gradient(135deg, rgba(255,200,120,.25), transparent, rgba(255,170,80,.2));
+    z-index:-1;
+}
+
+/* =====================================================
+   FINAL ICON
+   ===================================================== */
+
+.final-icon{
+    font-size:5rem;
+    margin-bottom:20px;
+    animation: finalPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes finalPulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.15); }
+}
+
+/* =====================================================
+   FINAL TEXT
+   ===================================================== */
+
+.final-card h2{
+    font-size:2.5rem;
+    font-weight:800;
+    margin-bottom:16px;
+    background: linear-gradient(135deg, #fff2d6, #ffbf7b);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.final-card p{
+    font-size:1.15rem;
+    line-height:1.8;
+    color:#ead8c6;
+    margin-bottom:32px;
+}
+
+/* =====================================================
+   FINAL BUTTON
+   ===================================================== */
+
+.final-btn{
+    border:none;
+    cursor:pointer;
+    padding:16px 42px;
+    border-radius:999px;
+    font-size:1.05rem;
+    font-weight:800;
+    color:#2c1d12;
+    background: linear-gradient(135deg, #ffbf6b, #ff9644);
+    box-shadow: 0 18px 40px rgba(255,145,50,.25);
+    transition:.35s;
+    position:relative;
+    overflow:hidden;
+}
+
+.final-btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:120%;
+    height:100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+    transition:.7s;
+}
+
+.final-btn:hover::before{
+    left:120%;
+}
+
+.final-btn:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 24px 50px rgba(255,145,50,.4);
+}
+
+.final-btn:active{
+    transform:scale(.97);
+}
+
+/* =====================================================
+   TABLET
+   ===================================================== */
+
+@media (max-width: 1000px){
+    .wrapper{
+        flex-direction:column;
+        gap:40px;
+        padding:30px;
+    }
+    .lamp-area{ justify-content:center; }
+    .card-area{ justify-content:center; }
+    .lamp-svg-container{ width:320px; }
+    .login-card{ width:380px; }
+    .story-card{ width:520px; }
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px){
+    .wrapper{
+        gap:25px;
+        padding:20px;
+    }
+    .lamp-svg-container{ width:260px; }
+    .login-card{
+        width:100%;
+        padding:28px;
+    }
+    .login-card h1{ font-size:1.6rem; }
+    .subtitle{ font-size:.9rem; }
+    .story-card{
+        width:92vw;
+        padding: 34px 24px;
+    }
+    .card-icon{ font-size:3rem; }
+    .card-content h2{ font-size:1.55rem; }
+    .card-content p{ font-size:1.05rem; }
+    .ready-btn{ width:100%; }
+    .final-card{ padding: 42px 24px; }
+    .final-icon{ font-size:4rem; }
+    .final-card h2{ font-size:1.9rem; }
+    .final-card p{ font-size:1rem; }
+    .final-btn{ width:100%; }
+}
+
+/* =====================================================
+   SMALL PHONES
+   ===================================================== */
+
+@media (max-width: 420px){
+    .greeting-icon{ font-size:2.4rem; }
+    .login-card h1{ font-size:1.4rem; }
+    .card-content h2{ font-size:1.35rem; }
+    .card-content p{ font-size:.95rem; }
+    .final-card h2{ font-size:1.6rem; }
+}
+
+/* =====================================================
+   SAFARI FIXES
+   ===================================================== */
+
+@supports (-webkit-touch-callout:none){
+    .login-card,
+    .story-card,
+    .final-card{
+        -webkit-backdrop-filter:blur(25px);
+    }
+}
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce){
+    *,
+    *::before,
+    *::after{
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+    }
+    .particle,
+    .spark,
+    .trail-dot{
+        display:none !important;
+    }
+}
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0d0c10;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6b4a2c;
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#8a5e38;
+}
+
+/* Скрываем финальный экран по умолчанию */
+.final-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(255,185,90,.08), rgba(0,0,0,.88));
+    backdrop-filter: blur(14px);
+    z-index: 300;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .8s ease, visibility .8s ease;
+}
+
+.final-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =====================================================
+   ОКНО ВЫБОРА КРИТЕРИЕВ (КРАСИВОЕ ОФОРМЛЕНИЕ)
+   ===================================================== */
+
+.criteria-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0,0,0,.96), rgba(0,0,0,.99));
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s ease, visibility .6s ease;
+}
+
+.criteria-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.criteria-card {
+    width: 780px;
+    max-width: 92vw;
+    padding: 50px 40px;
+    border-radius: 70px;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(145deg, rgba(45, 35, 60, 0.98), rgba(28, 22, 40, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.5);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 180, 80, 0.25);
+    transform: scale(0.9) translateY(40px);
+    transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.criteria-screen.active .criteria-card {
+    transform: scale(1) translateY(0);
+}
+
+.criteria-icon {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    animation: iconFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.criteria-card h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 45px;
+    background: linear-gradient(135deg, #fff5e8, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+}
+
+.criteria-options {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.criteria-item {
+    flex: 1;
+    min-width: 200px;
+    background: linear-gradient(145deg, rgba(30, 25, 42, 0.8), rgba(22, 18, 32, 0.9));
+    border-radius: 50px;
+    padding: 30px 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 210, 130, 0.3);
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+.criteria-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 210, 130, 0.9);
+    background: linear-gradient(145deg, rgba(45, 38, 60, 0.9), rgba(35, 28, 48, 0.95));
+    box-shadow: 0 20px 45px rgba(255, 180, 80, 0.25);
+}
+
+.criteria-icon-small {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+}
+
+.criteria-item:hover .criteria-icon-small {
+    transform: scale(1.1);
+}
+
+.criteria-item h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffdeb7, #ffc68a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.criteria-item p {
+    font-size: 0.9rem;
+    color: #d4c5b5;
+    margin-bottom: 22px;
+    line-height: 1.5;
+}
+
+.criteria-select-btn {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.criteria-select-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+/* =====================================================
+   ОКНО ПОДТВЕРЖДЕНИЯ ВЫБОРА
+   ===================================================== */
+
+.confirmation-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0,0,0,.95), rgba(0,0,0,.98));
+    backdrop-filter: blur(20px);
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.confirmation-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.confirmation-card {
+    width: 450px;
+    max-width: 85vw;
+    padding: 50px 40px;
+    border-radius: 60px;
+    text-align: center;
+    background: linear-gradient(145deg, rgba(50, 40, 68, 0.98), rgba(30, 24, 45, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.6);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 180, 80, 0.3);
+    transform: scale(0.8) translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.confirmation-screen.active .confirmation-card {
+    transform: scale(1) translateY(0);
+}
+
+.confirmation-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: confirmationPop 0.6s ease-out;
+}
+
+@keyframes confirmationPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.confirmation-card h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #fff2e0, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.confirmation-card p {
+    font-size: 1.1rem;
+    color: #e0cfbc;
+    margin-bottom: 20px;
+}
+
+.confirmation-badge {
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, rgba(255, 180, 80, 0.2), rgba(255, 140, 60, 0.15));
+    border-radius: 60px;
+    margin: 15px 0;
+    border: 1px solid rgba(255, 200, 120, 0.5);
+    color: #ffdeb7;
+}
+
+.confirmation-btn {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.confirmation-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+/* Адаптив */
+@media (max-width: 700px) {
+    .criteria-card {
+        padding: 35px 25px;
+    }
+    .criteria-card h2 {
+        font-size: 1.4rem;
+    }
+    .criteria-item {
+        min-width: 160px;
+        padding: 22px 15px;
+    }
+    .criteria-icon-small {
+        font-size: 2.5rem;
+    }
+    .criteria-item h3 {
+        font-size: 1.3rem;
+    }
+    .confirmation-card {
+        padding: 35px 25px;
+    }
+    .confirmation-card h2 {
+        font-size: 1.5rem;
+    }
+    .confirmation-badge {
+        font-size: 1.5rem;
+    }
+}
+
+/* =====================================================
+   КАРТОЧКИ КРИТЕРИЕВ — РАСТЯГИВАЮТСЯ ШИРЕ
+   ===================================================== */
+
+.criteria-card {
+    width: 780px;
+    max-width: 92vw;
+    padding: 35px 30px;
+    border-radius: 55px;
+    background: linear-gradient(145deg, rgba(45, 35, 60, 0.98), rgba(28, 22, 40, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.4);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+}
+
+.criteria-options {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+}
+
+/* Базовая карточка — все одинакового размера */
+.criteria-item {
+    flex: 1;
+    min-width: 0;
+    background: linear-gradient(145deg, rgba(30, 25, 42, 0.8), rgba(22, 18, 32, 0.9));
+    border-radius: 50px;
+    padding: 25px 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 210, 130, 0.3);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+}
+
+/* Затемнение остальных карточек при наведении */
+.criteria-options:has(.criteria-item:hover) .criteria-item:not(:hover) {
+    filter: blur(3px) brightness(0.4);
+    opacity: 0.5;
+    transform: scale(0.96);
+}
+
+/* Активная карточка — РАСТЯГИВАЕТСЯ ШИРОКО (flex: 5 вместо 3) */
+.criteria-item:hover {
+    flex: 5;
+    transform: translateY(-8px);
+    z-index: 100;
+    border-color: rgba(255, 210, 130, 0.9);
+    background: linear-gradient(145deg, rgba(55, 45, 72, 0.98), rgba(40, 32, 55, 0.98));
+    box-shadow: 0 30px 60px rgba(255, 180, 80, 0.4);
+}
+
+/* Карусель — появляется при наведении */
+.criteria-item .carousel-container {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 0;
+}
+
+.criteria-item:hover .carousel-container {
+    max-height: 420px;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 20px;
+}
+
+.criteria-icon-small {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.criteria-item:hover .criteria-icon-small {
+    transform: scale(1.1);
+}
+
+.criteria-item h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffdeb7, #ffc68a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+}
+
+.criteria-item p {
+    font-size: 0.85rem;
+    color: #d4c5b5;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.criteria-extra {
+    font-size: 0.9rem;
+    color: #ffc491;
+    margin: 10px 0;
+    padding: 6px 15px;
+    background: rgba(255, 180, 80, 0.15);
+    border-radius: 30px;
+    display: inline-block;
+}
+
+.criteria-select-btn {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 8px 25px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-top: 10px;
+}
+
+.criteria-select-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+}
+
+/* =====================================================
+   КАРУСЕЛЬ
+   ===================================================== */
+
+.criteria-item .carousel-inner {
+    display: flex;
+    transition: transform 0.4s ease;
+    border-radius: 20px;
+}
+
+.criteria-item .carousel-slide {
+    min-width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.criteria-item .carousel-slide img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+}
+
+.criteria-item .carousel-caption {
+    font-size: 0.9rem;
+    color: #ffdeb7;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.criteria-item .carousel-prev,
+.criteria-item .carousel-next {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    background: rgba(255, 180, 80, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s;
+    color: #2b1e12;
+    font-size: 1.2rem;
+    z-index: 15;
+}
+
+.criteria-item:hover .carousel-prev,
+.criteria-item:hover .carousel-next {
+    opacity: 1;
+}
+
+.criteria-item .carousel-prev {
+    left: 15px;
+}
+
+.criteria-item .carousel-next {
+    right: 15px;
+}
+
+.criteria-item .carousel-prev:hover,
+.criteria-item .carousel-next:hover {
+    background: #ffb35c;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.criteria-item .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.criteria-item:hover .carousel-dots {
+    opacity: 1;
+}
+
+.criteria-item .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 210, 130, 0.5);
+    cursor: pointer;
+}
+
+.criteria-item .carousel-dot.active {
+    background: #ffb35c;
+    width: 24px;
+    border-radius: 12px;
+}
+
+/* =====================================================
+   ГЛАВНОЕ ОКНО
+   ===================================================== */
+
+.criteria-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    animation: iconFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+}
+
+.criteria-card h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #fff5e8, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.4;
+}
+
+/* Адаптив */
+@media (max-width: 800px) {
+    .criteria-item .carousel-slide img {
+        height: 160px;
+    }
+    .criteria-item:hover {
+        flex: 4;
+    }
+}
+
+@media (max-width: 700px) {
+    .criteria-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .criteria-item {
+        width: 100%;
+        flex: none;
+    }
+    .criteria-item:hover {
+        flex: none;
+        transform: translateY(-5px);
+        width: 100%;
+    }
+}
+
+/* =====================================================
+   ОБЩИЕ СТИЛИ ДЛЯ КРИТЕРИЕВ
+   ===================================================== */
+
+.criteria-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: iconFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.criteria-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 35px;
+    background: linear-gradient(135deg, #fff5e8, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.4;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 800px) {
+    #criteriaWalk:hover {
+        transform: scale(1.05) translateY(-5px);
+    }
+    #criteriaWalk:hover .carousel-container {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 700px) {
+    .criteria-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    .criteria-item {
+        width: 100%;
+        max-width: 300px;
+    }
+    #criteriaWalk:hover {
+        transform: scale(1.03) translateY(-5px);
+        z-index: 100;
+    }
+}
+
+/* =====================================================
+   ВЫБОР КУХНИ ДЛЯ РЕСТОРАНА (ВНУТРИ КАРТОЧКИ)
+   ===================================================== */
+
+/* Контейнер для выбора кухни — не выходит за пределы карточки */
+.kitchen-choice-container {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    overflow: hidden; /* Важно: скрывает всё, что выходит за пределы */
+    width: 100%;
+    margin-top: 0;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 45px;
+    padding: 0 15px;
+    position: relative;
+    z-index: 200;
+    box-sizing: border-box;
+}
+
+/* Показываем блок выбора кухни при наведении на ресторан */
+.criteria-item[data-type="restaurant"]:hover .kitchen-choice-container {
+    max-height: 280px;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 15px;
+    padding: 15px;
+    overflow-y: auto; /* Добавляем прокрутку, если нужно */
+}
+
+.kitchen-title {
+    font-size: 1rem;
+    color: #ffdeb7;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.kitchen-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* КНОПКИ ВЫБОРА КУХНИ — адаптируются под ширину карточки */
+.kitchen-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: rgba(255, 180, 80, 0.18);
+    border-radius: 45px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 95px;
+    max-width: 120px;
+    flex: 1 0 auto;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 201;
+    border: 1px solid rgba(255, 210, 130, 0.25);
+    backdrop-filter: blur(4px);
+    box-sizing: border-box;
+}
+
+.kitchen-option:hover {
+    background: rgba(255, 180, 80, 0.45);
+    transform: translateY(-3px) scale(1.03);
+    border-color: rgba(255, 210, 130, 0.7);
+}
+
+.kitchen-option.selected {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border-color: #ffd89a;
+    box-shadow: 0 6px 18px rgba(255, 140, 60, 0.35);
+}
+
+.kitchen-option.selected .kitchen-icon {
+    filter: brightness(1);
+}
+
+.kitchen-option.selected span {
+    color: #2b1e12;
+    font-weight: 700;
+}
+
+.kitchen-icon {
+    font-size: 1.8rem;
+    pointer-events: none;
+}
+
+.kitchen-option span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffdeb7;
+    pointer-events: none;
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+/* Индикатор выбранной кухни */
+#selectedKitchenDisplay {
+    font-size: 0.8rem;
+    color: #ffc491;
+    margin: 10px 0;
+    padding: 5px 12px;
+    background: rgba(255, 180, 80, 0.15);
+    border-radius: 40px;
+    display: inline-block;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 600px) {
+    .kitchen-option {
+        min-width: 80px;
+        padding: 7px 10px;
+    }
+    .kitchen-icon {
+        font-size: 1.4rem;
+    }
+    .kitchen-option span {
+        font-size: 0.7rem;
+    }
+}
+
+/* При очень маленькой ширине — кнопки переносятся на новую строку */
+@media (max-width: 480px) {
+    .kitchen-options {
+        gap: 8px;
+    }
+    .kitchen-option {
+        min-width: 70px;
+        padding: 6px 8px;
+    }
+}
+
+/* Отображение выбранного места для прогулки */
+.selected-place-display {
+    font-size: 0.85rem;
+    color: #ffc491;
+    margin: 10px 0;
+    padding: 6px 15px;
+    background: rgba(255, 180, 80, 0.15);
+    border-radius: 30px;
+    display: inline-block;
+}
+
+/* Подсветка выбранного слайда */
+.carousel-slide.selected {
+    border: 2px solid #ffb35c;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 180, 80, 0.5);
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.carousel-slide {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.carousel-slide:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+#selectedRestaurantDisplay {
+    font-size: 0.85rem;
+    color: #ffc491;
+    margin: 10px 0;
+    padding: 6px 15px;
+    background: rgba(255, 180, 80, 0.15);
+    border-radius: 30px;
+    display: inline-block;
+}
+
+/* =====================================================
+   ОКНО ПОДТВЕРЖДЕНИЯ ВЫБОРА — КРАСИВОЕ ОФОРМЛЕНИЕ
+   ===================================================== */
+
+.confirmation-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0,0,0,.95), rgba(0,0,0,.98));
+    backdrop-filter: blur(20px);
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.confirmation-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.confirmation-card {
+    width: 500px;
+    max-width: 85vw;
+    padding: 45px 35px;
+    border-radius: 60px;
+    text-align: center;
+    background: linear-gradient(145deg, rgba(50, 40, 68, 0.98), rgba(30, 24, 45, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.6);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 180, 80, 0.3);
+    transform: scale(0.8) translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.confirmation-screen.active .confirmation-card {
+    transform: scale(1) translateY(0);
+}
+
+.confirmation-icon {
+    font-size: 4.5rem;
+    margin-bottom: 15px;
+    animation: confirmationPop 0.6s ease-out;
+}
+
+@keyframes confirmationPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.confirmation-card h2 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, #fff2e0, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.3;
+}
+
+.confirmation-badge {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, rgba(255, 180, 80, 0.15), rgba(255, 140, 60, 0.1));
+    border-radius: 40px;
+    margin: 15px 0;
+    border: 1px solid rgba(255, 200, 120, 0.4);
+    color: #ffdeb7;
+}
+
+.confirmation-btn {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.confirmation-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+/* =====================================================
+   ЭКРАН ВЫБОРА ДАТЫ
+   ===================================================== */
+
+.date-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0,0,0,.96), rgba(0,0,0,.99));
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s ease, visibility .6s ease;
+}
+
+.date-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.date-card {
+    width: 500px;
+    max-width: 92vw;
+    padding: 40px 35px;
+    border-radius: 60px;
+    text-align: center;
+    background: linear-gradient(145deg, rgba(45, 35, 60, 0.98), rgba(28, 22, 40, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.5);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 180, 80, 0.25);
+    transform: scale(0.9) translateY(40px);
+    transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.date-screen.active .date-card {
+    transform: scale(1) translateY(0);
+}
+
+.date-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: iconFloat 2.5s ease-in-out infinite;
+}
+
+.date-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff5e8, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.date-card p {
+    font-size: 0.95rem;
+    color: #d4c5b5;
+    margin-bottom: 25px;
+}
+
+/* =====================================================
+   НАТИВНЫЙ КАЛЕНДАРЬ (работает как приложение)
+   ===================================================== */
+
+.native-date-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.native-date-picker {
+    width: 100%;
+    max-width: 280px;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: #ffdeb7;
+    background: linear-gradient(135deg, rgba(30, 25, 42, 0.9), rgba(22, 18, 32, 0.95));
+    border: 2px solid rgba(255, 210, 130, 0.5);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.native-date-picker:hover {
+    border-color: rgba(255, 210, 130, 0.9);
+    transform: scale(1.02);
+}
+
+.native-date-picker:focus {
+    outline: none;
+    border-color: #ffb35c;
+    box-shadow: 0 0 15px rgba(255, 180, 80, 0.3);
+}
+
+/* Стили для календаря в браузере (webkit) */
+.native-date-picker::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.8) sepia(1) saturate(5) hue-rotate(320deg);
+    padding: 8px;
+}
+
+/* Для Firefox и других браузеров */
+.native-date-picker::-moz-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.native-date-picker::-webkit-datetime-edit {
+    color: #ffdeb7;
+}
+
+.native-date-picker::-webkit-datetime-edit-fields-wrapper {
+    color: #ffdeb7;
+}
+
+.native-date-picker::-webkit-datetime-edit-text {
+    color: #ffc491;
+}
+
+.native-date-picker::-webkit-datetime-edit-month-field,
+.native-date-picker::-webkit-datetime-edit-day-field,
+.native-date-picker::-webkit-datetime-edit-year-field {
+    color: #ffdeb7;
+}
+
+/* =====================================================
+   ЭКРАН ВЫБОРА ДАТЫ
+   ===================================================== */
+
+.date-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0,0,0,.96), rgba(0,0,0,.99));
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s ease, visibility .6s ease;
+}
+
+.date-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.date-card {
+    width: 450px;
+    max-width: 90vw;
+    padding: 40px 35px;
+    border-radius: 60px;
+    text-align: center;
+    background: linear-gradient(145deg, rgba(45, 35, 60, 0.98), rgba(28, 22, 40, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.5);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 180, 80, 0.25);
+    transform: scale(0.9) translateY(40px);
+    transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.date-screen.active .date-card {
+    transform: scale(1) translateY(0);
+}
+
+.date-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: iconFloat 2.5s ease-in-out infinite;
+}
+
+.date-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff5e8, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.date-card p {
+    font-size: 0.95rem;
+    color: #d4c5b5;
+    margin-bottom: 15px;
+}
+
+.selected-date-display {
+    font-size: 0.9rem;
+    color: #ffc491;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(255, 180, 80, 0.15);
+    border-radius: 40px;
+}
+
+.date-select-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.date-select-btn:hover:not(:disabled) {
+    transform: scale(1.02);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+.date-select-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.date-next-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.date-next-btn:hover:not(:disabled) {
+    transform: scale(1.02);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+.date-next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =====================================================
+   ФИНАЛЬНАЯ КАРТОЧКА (ВСЕ ВЫБРАННЫЕ ОПЦИИ)
+   ===================================================== */
+
+.final-summary-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.96), rgba(0,0,0,0.99));
+    backdrop-filter: blur(25px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.final-summary-screen.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.final-summary-card {
+    width: 520px;
+    max-width: 90vw;
+    padding: 45px 35px;
+    border-radius: 60px;
+    text-align: center;
+    background: linear-gradient(145deg, rgba(45, 35, 60, 0.98), rgba(28, 22, 40, 0.98));
+    border: 2px solid rgba(255, 210, 130, 0.5);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 180, 80, 0.25);
+    transform: scale(0.9) translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.final-summary-screen.active .final-summary-card {
+    transform: scale(1) translateY(0);
+}
+
+.final-summary-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: summaryPop 0.6s ease-out;
+}
+
+@keyframes summaryPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.final-summary-card h2 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff2e0, #ffd4a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.final-summary-subtitle {
+    font-size: 0.9rem;
+    color: #d4c5b5;
+    margin-bottom: 25px;
+}
+
+.final-summary-content {
+    text-align: left;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 5px 20px;
+    margin-bottom: 30px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 200, 120, 0.12);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-icon {
+    font-size: 2rem;
+    width: 50px;
+    text-align: center;
+}
+
+.summary-text {
+    flex: 1;
+}
+
+.summary-label {
+    font-size: 0.7rem;
+    color: #ffc491;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.summary-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffefd6;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.final-summary-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.final-summary-btn {
+    flex: 1;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.final-summary-btn.telegram {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    color: #2b1e12;
+}
+
+.final-summary-btn.telegram:hover {
+    transform: scale(1.02);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+.final-summary-btn.copy {
+    background: linear-gradient(135deg, #5a4a6e, #3d2d55);
+    color: #ffdeb7;
+}
+
+.final-summary-btn.copy:hover {
+    background: linear-gradient(135deg, #6e5a88, #4a3a65);
+    transform: scale(1.02);
+}
+
+.final-summary-status {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #ffc491;
+    min-height: 40px;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 550px) {
+    .final-summary-card {
+        padding: 35px 25px;
+    }
+    .final-summary-card h2 {
+        font-size: 1.5rem;
+    }
+    .summary-icon {
+        font-size: 1.6rem;
+        width: 40px;
+    }
+    .summary-value {
+        font-size: 0.9rem;
+    }
+    .final-summary-buttons {
+        flex-direction: column;
+    }
+}
+
+.final-summary-close-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2b1e12;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.final-summary-close-btn:hover {
+    transform: scale(1.02);
+    background: linear-gradient(135deg, #ffa445, #ff7920);
+    box-shadow: 0 8px 25px rgba(255, 120, 50, 0.4);
+}
+
+/* =====================================================
+   ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ И ЭФФЕКТЫ
+   ===================================================== */
+
+/* Анимация появления элементов */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 180, 80, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 180, 80, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 180, 80, 0.3);
+    }
+}
+
+@keyframes borderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Анимация для главного экрана */
+.wrapper {
+    animation: fadeInScale 0.8s ease-out;
+}
+
+/* Анимация для карточек критериев */
+.criteria-item {
+    animation: slideInLeft 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.criteria-item:nth-child(1) { animation-delay: 0.1s; }
+.criteria-item:nth-child(2) { animation-delay: 0.2s; }
+.criteria-item:nth-child(3) { animation-delay: 0.3s; }
+
+/* Эффект пульсации для кнопок */
+.signin-btn, .criteria-select-btn, .ready-btn, .final-btn, .date-next-btn, .final-summary-close-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.signin-btn::after, .criteria-select-btn::after, .ready-btn::after, .final-btn::after, .date-next-btn::after, .final-summary-close-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.signin-btn:active::after, .criteria-select-btn:active::after, .ready-btn:active::after, .final-btn:active::after, .date-next-btn:active::after, .final-summary-close-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Эффект свечения для активной лампы */
+.lamp-svg-container.active {
+    animation: glowPulse 2s infinite;
+}
+
+/* Анимация для карусели */
+.carousel-slide {
+    transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.carousel-slide:hover {
+    transform: scale(1.02);
+}
+
+/* Эффект для выбранного слайда */
+.carousel-slide.selected {
+    animation: borderFlow 2s linear infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 180, 80, 0.2), transparent);
+    background-size: 200% 100%;
+}
+
+/* Анимация для частиц */
+.particle {
+    animation: particleFloat 4s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) scale(0.3) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-200px) scale(1.2) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* Анимация для искр */
+.spark {
+    animation: sparkFly 1.2s ease-out forwards;
+}
+
+@keyframes sparkFly {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Эффект наведения для карточек истории */
+.story-card {
+    transition: all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.story-card:hover {
+    transform: translate(-50%, -50%) scale(1.02);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 180, 80, 0.4);
+}
+
+/* Анимация для иконок */
+.card-icon, .criteria-icon, .final-icon, .summary-icon {
+    transition: transform 0.3s ease;
+}
+
+.card-icon:hover, .criteria-icon:hover, .final-icon:hover, .summary-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Эффект градиентной границы для активных элементов */
+.criteria-item.active, .story-card.active {
+    position: relative;
+    background: linear-gradient(145deg, rgba(55, 45, 72, 0.98), rgba(40, 32, 55, 0.98));
+}
+
+.criteria-item.active::before, .story-card.active::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #ffb35c, #ff8c42, #ffb35c);
+    z-index: -1;
+    animation: borderFlow 3s linear infinite;
+}
+
+/* Анимация для confirmation-screen */
+.confirmation-card {
+    animation: fadeInScale 0.5s ease-out;
+}
+
+/* Анимация для date-screen */
+.date-card {
+    animation: fadeInScale 0.5s ease-out;
+}
+
+/* Анимация для final-summary-screen */
+.final-summary-card {
+    animation: fadeInScale 0.5s ease-out;
+}
+
+/* Эффект наведения для кухонь */
+.kitchen-option {
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.kitchen-option:hover {
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Анимация для выбранной кухни */
+.kitchen-option.selected {
+    animation: glowPulse 1.5s infinite;
+}
+
+/* Эффект для календаря */
+.native-date-picker {
+    transition: all 0.3s ease;
+}
+
+.native-date-picker:focus {
+    transform: scale(1.02);
+    animation: glowPulse 1.5s infinite;
+}
+
+/* Анимация для сообщений об ошибках */
+.form-message {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Эффект для статусных сообщений */
+#finalSummaryStatus {
+    transition: opacity 0.3s ease;
+}
+
+/* Анимация для загрузки */
+.loading {
+    animation: loadingPulse 1s infinite;
+}
+
+@keyframes loadingPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Эффект для выбранной даты */
+.selected-date-display {
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация для фона при смене экранов */
+.criteria-screen, .date-screen, .final-summary-screen {
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Эффект парящих сердец */
+.floating-hearts, .floating-stars, .floating-sparkles {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Анимация для кнопки "Далее" при активации */
+.date-next-btn:not(:disabled) {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* Эффект для финальной карточки при наведении */
+.final-summary-card:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+/* Анимация для всех иконок */
+[class*="icon"] {
+    transition: all 0.3s ease;
+}
+
+/* Эффект для текста при наведении */
+.summary-value {
+    transition: all 0.3s ease;
+}
+
+.summary-item:hover .summary-value {
+    color: #ffd4a0;
+    transform: translateX(5px);
+}
+
+/* Анимация для магического следа */
+.trail-dot {
+    animation: trailFade 0.8s ease-out forwards;
+}
+
+@keyframes trailFade {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+/* Эффект неона для заголовков */
+h1, h2, h3 {
+    text-shadow: 0 0 5px rgba(255, 180, 80, 0.3);
+    transition: text-shadow 0.3s ease;
+}
+
+h1:hover, h2:hover, h3:hover {
+    text-shadow: 0 0 15px rgba(255, 180, 80, 0.5);
+}
+
+/* Плавная прокрутка для всей страницы */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Улучшенный скроллбар */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a2e;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ffc47a, #ffa55a);
+}
+
+/* Эффект стекла для карточек */
+.login-card, .criteria-card, .confirmation-card, .date-card, .final-summary-card, .story-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Анимация для фонового свечения */
+.background-glow::before {
+    animation: rotateGlow 20s linear infinite;
+}
+
+/* Эффект для активных элементов меню */
+.criteria-select-btn:active, .signin-btn:active {
+    transform: scale(0.98);
+}
+
+/* Плавное появление финальной карточки */
+.final-summary-screen.active .final-summary-card {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+}
+
+.fade-transition {
+    transition: opacity 0.5s ease;
+}
+.fade-transition.exit {
+    opacity: 0;
+}
+
+/* =====================================================
+   ПРОФИЛЬНАЯ КАРТОЧКА РАЗРАБОТЧИКА (КАК НА СКРИНЕ)
+   ===================================================== */
+
+/* Затемнение фона */
+.developer-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    display: none;
+}
+
+.developer-card-overlay.show {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+/* Основная карточка */
+.developer-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: 2000;
+    width: 320px;
+    background: linear-gradient(135deg, rgba(45, 35, 60, 0.98), rgba(28, 22, 40, 0.98));
+    border-radius: 60px 20px 20px 60px;
+    border: 2px solid rgba(255, 200, 120, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 180, 80, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+    overflow: visible;
+}
+
+.developer-card.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Внутренняя часть карточки */
+.developer-card-inner {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px 12px 12px;
+    position: relative;
+}
+
+/* Аватар */
+.developer-avatar {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.developer-img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffb35c;
+    box-shadow: 0 0 15px rgba(255, 180, 80, 0.4);
+    transition: all 0.3s ease;
+}
+
+.developer-card:hover .developer-img {
+    transform: scale(1.02);
+    border-color: #ffd4a0;
+    box-shadow: 0 0 25px rgba(255, 180, 80, 0.6);
+}
+
+/* Информация */
+.developer-info {
+    flex: 1;
+    padding-left: 15px;
+}
+
+.developer-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffdeb7;
+    margin-bottom: 4px;
+}
+
+.developer-name span {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+.developer-title {
+    font-size: 0.7rem;
+    color: #ffc491;
+    opacity: 0.8;
+}
+
+/* Кнопка с тремя линиями (меню) */
+.developer-menu-btn {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(255, 140, 60, 0.3);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.developer-menu-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(255, 140, 60, 0.5);
+}
+
+.developer-icon-menu,
+.developer-icon-close {
+    color: #2b1e12;
+    font-size: 1.2rem;
+    position: absolute;
+    transition: opacity 0.2s, transform 0.3s;
+}
+
+.developer-icon-close {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+.developer-menu-btn.show-icon .developer-icon-menu {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+.developer-menu-btn.show-icon .developer-icon-close {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* Социальные ссылки (раскрывающиеся) */
+.developer-social {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130px;
+    height: 130px;
+    background: rgba(35, 28, 48, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+    border: 2px solid rgba(255, 200, 120, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.developer-social.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.developer-social-link {
+    position: absolute;
+    transition: transform 0.3s;
+}
+
+.developer-social-link .social-circle {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffdeb7;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 200, 120, 0.3);
+    cursor: pointer;
+}
+
+.developer-social-link .social-circle:hover {
+    background: linear-gradient(135deg, #ffb35c, #ff8c42);
+    color: #2b1e12;
+    transform: scale(1.1);
+    border-color: transparent;
+}
+
+/* Позиции социальных кнопок при открытии */
+.developer-social.show .developer-social-link:nth-child(1) {
+    transform: rotate(-85deg) translateX(75px) rotate(85deg);
+    transition-delay: 0s;
+}
+.developer-social.show .developer-social-link:nth-child(2) {
+    transform: rotate(-45deg) translateX(75px) rotate(45deg);
+    transition-delay: 0.1s;
+}
+.developer-social.show .developer-social-link:nth-child(3) {
+    transform: rotate(0deg) translateX(75px) rotate(0deg);
+    transition-delay: 0.2s;
+}
+.developer-social.show .developer-social-link:nth-child(4) {
+    transform: rotate(45deg) translateX(75px) rotate(-45deg);
+    transition-delay: 0.3s;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 550px) {
+    .developer-card {
+        width: 290px;
+    }
+    .developer-img {
+        width: 65px;
+        height: 65px;
+    }
+    .developer-name {
+        font-size: 0.85rem;
+    }
+    .developer-social {
+        width: 110px;
+        height: 110px;
+    }
+    .developer-social.show .developer-social-link:nth-child(1) {
+        transform: rotate(-85deg) translateX(62px) rotate(85deg);
+    }
+    .developer-social.show .developer-social-link:nth-child(2) {
+        transform: rotate(-45deg) translateX(62px) rotate(45deg);
+    }
+    .developer-social.show .developer-social-link:nth-child(3) {
+        transform: rotate(0deg) translateX(62px) rotate(0deg);
+    }
+    .developer-social.show .developer-social-link:nth-child(4) {
+        transform: rotate(45deg) translateX(62px) rotate(-45deg);
+    }
+}

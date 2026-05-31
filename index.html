@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свидание</title>
+
+    <meta name="theme-color" content="#000000">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Фоновое свечение -->
+    <div class="background-glow"></div>
+
+    <!-- Частицы -->
+    <div id="particlesContainer" class="light-particles"></div>
+
+    <!-- Искры -->
+    <div id="sparklesOverlay" class="sparkles-overlay"></div>
+
+    <!-- Магический след -->
+    <div id="magicTrail" class="magic-trail"></div>
+
+    <!-- Основной экран -->
+    <main class="wrapper" id="mainWrapper">
+
+        <!-- Левая часть -->
+        <section class="lamp-area">
+
+            <div class="lamp-scene">
+
+                <div class="lamp-svg-container" id="lampContainer">
+
+                    <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                        <path d="M170 440 L230 440 L240 470 L160 470 L170 440Z" fill="#3A2A24" stroke="#5E3E2E" stroke-width="2"/>
+                        <rect x="180" y="460" width="40" height="15" rx="4" fill="#2F241F" stroke="#6B4C38" stroke-width="1.5"/>
+                        <rect x="190" y="300" width="20" height="140" rx="6" fill="#8B5A3C" stroke="#AC7856" stroke-width="1.5"/>
+                        <rect x="186" y="290" width="28" height="18" rx="5" fill="#A56E48" stroke="#C68B5E" stroke-width="1"/>
+                        
+                        <g id="lampshadeGroup">
+                            <path id="lampshade" d="M135 180 L265 180 L290 290 L110 290 L135 180Z" fill="#4A3530" stroke="#BC8F6B" stroke-width="2" opacity="0.9"/>
+                            <path d="M148 195 L252 195 L272 280 L128 280 L148 195Z" fill="#5E453E" opacity="0.7" stroke="#DBA77A" stroke-width="1.2"/>
+                            
+                            <g id="ropeHandle" class="rope-handle">
+                                <path d="M280 270 Q285 285 282 305 Q280 315 283 330" stroke="#C2926B" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                                <circle cx="283" cy="334" r="6" fill="#D4A373" stroke="#B87A4C" stroke-width="1.5"/>
+                                <path d="M279 337 L277 346 L281 344 L283 346 L285 344 L289 346 L287 337" fill="#C28554" stroke="#A56B42" stroke-width="0.8"/>
+                            </g>
+                        </g>
+                        
+                        <g id="lightGlow" opacity="0">
+                            <path d="M155 205 L245 205 L263 275 L137 275 L155 205Z" fill="url(#glowGradient)" opacity="0.9"/>
+                            <path d="M170 220 L230 220 L245 265 L155 265 L170 220Z" fill="#FFE6B3" opacity="0.6"/>
+                            <circle cx="200" cy="240" r="48" fill="#FFD58C" opacity="0.5" filter="url(#blurFilter)"/>
+                        </g>
+                        
+                        <g id="lightRays" opacity="0">
+                            <path d="M125 200 L80 120 L95 110 L135 190Z" fill="#FFE0A3" opacity="0.25"/>
+                            <path d="M275 200 L320 120 L305 110 L265 190Z" fill="#FFE0A3" opacity="0.25"/>
+                            <path d="M145 160 L100 70 L120 60 L155 150Z" fill="#FFDCA0" opacity="0.2"/>
+                            <path d="M255 160 L300 70 L280 60 L245 150Z" fill="#FFDCA0" opacity="0.2"/>
+                        </g>
+                        
+                        <defs>
+                            <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#FFF0C5"/>
+                                <stop offset="65%" stop-color="#FFD59A"/>
+                                <stop offset="100%" stop-color="#E39B52" stop-opacity="0"/>
+                            </radialGradient>
+                            <filter id="blurFilter" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="14"/>
+                            </filter>
+                        </defs>
+                    </svg>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Правая часть -->
+        <section class="card-area">
+
+            <div class="login-card" id="loginCard">
+
+                <h1>Заполни анкету</h1>
+
+                <form id="inviteForm" novalidate>
+
+                    <div class="input-group">
+                        <label for="firstName">Имя</label>
+                        <input type="text" id="firstName" placeholder="Твоё имя" autocomplete="given-name" maxlength="30">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="lastName">Фамилия</label>
+                        <input type="text" id="lastName" placeholder="Твоя фамилия" autocomplete="family-name" maxlength="30">
+                    </div>
+
+                    <button type="submit" class="signin-btn">✨ Далее ✨</button>
+
+                </form>
+
+                <div id="formMessage" class="form-message"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- История -->
+    <section class="cards-show" id="cardsShow">
+
+        <article class="story-card card-1" id="card1">
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+            <div class="card-content">
+                <div class="card-icon">🌹✨🌹</div>
+                <h2>Маленький секрет</h2>
+                <p>Ты только согласилась на свидание. Ты же не против?</p>
+                <div class="floating-hearts"></div>
+            </div>
+        </article>
+
+        <article class="story-card card-2" id="card2">
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+            <div class="card-content">
+                <div class="card-icon">🌟💫🌟</div>
+                <h2>Следующий шаг</h2>
+                <p>Сейчас тебе предстоит выбрать, каким будет наше свидание.</p>
+                <div class="floating-stars"></div>
+            </div>
+        </article>
+
+        <article class="story-card card-3" id="card3">
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+            <div class="card-content">
+                <div class="card-icon">💖🎀💖</div>
+                <h2>Готова?</h2>
+                <p>Тогда отправляемся дальше</p>
+                <button class="ready-btn" id="readyBtn" type="button">💫 Да, готова! 💫</button>
+                <div class="floating-sparkles"></div>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Окно выбора критериев -->
+    <section class="criteria-screen" id="criteriaScreen" style="display: none;">
+        <div class="criteria-card">
+            <div class="criteria-icon">✨🎁✨</div>
+            <h2>Ты будешь "собирать" свидание по следующим критериям:</h2>
+            <div class="criteria-options">
+                
+                <!-- Прогулка -->
+                <div class="criteria-item" data-type="walk" id="criteriaWalk">
+                    <h3>Прогулка</h3>
+                    <p>Прогулка по красивым местам</p>
+                    
+                    <!-- Карусель (появляется при наведении) -->
+                    <div class="carousel-container">
+                        <div class="carousel-inner">
+                            <div class="carousel-slide">
+                                <img src="image/walk1.jpg" alt="Босоногая тропа">
+                                <div class="carousel-caption">Босоногая тропа</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="image/walk2.jpg" alt="Музей Рекордиум">
+                                <div class="carousel-caption">Музей Рекордиум</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="image/walk3.jpg" alt="Покровский берег">
+                                <div class="carousel-caption">Покровский берег</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="image/walk4.jpg" alt="Москва-сити">
+                                <div class="carousel-caption">Москва-сити</div>
+                            </div>
+                        </div>
+                        <button class="carousel-prev">◀</button>
+                        <button class="carousel-next">▶</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+
+                        <div class="selected-place-display" id="selectedWalkPlace" style="display: none;">
+                            Выбрано место: <span id="walkPlaceName"></span>
+                        </div>
+                    
+                    <button class="criteria-select-btn" data-option="walk">Выбрать</button>
+                </div>
+                
+<!-- Ресторан -->
+<div class="criteria-item" data-type="restaurant" id="criteriaRestaurant">
+    <h3>Ресторан</h3>
+    <p>Уютный ужин при свечах</p>
+
+        <div class="criteria-extra" id="selectedRestaurantDisplay" style="display: none;">
+        Выбрано блюдо: <span id="restaurantDishName"></span>
+    </div>  
+    
+<!-- Блок выбора кухни -->
+<div class="kitchen-choice-container">
+    <div class="kitchen-title">🍜 Выбери кухню 🍣</div>
+    <div class="kitchen-options" id="kitchenOptions">
+        <div class="kitchen-option" data-kitchen="italian">
+            <div class="kitchen-icon">🇮🇹🍕</div>
+            <span>Итальянская</span>
+        </div>
+        <div class="kitchen-option" data-kitchen="japanese">
+            <div class="kitchen-icon">🇯🇵🍣</div>
+            <span>Японская</span>
+        </div>
+        <div class="kitchen-option" data-kitchen="french">
+            <div class="kitchen-icon">🇫🇷🥐</div>
+            <span>Французская</span>
+        </div>
+        <div class="kitchen-option" data-kitchen="georgian">
+            <div class="kitchen-icon">🇬🇪🥟</div>
+            <span>Грузинская</span>
+        </div>
+        <div class="kitchen-option" data-kitchen="european">
+            <div class="kitchen-icon">🇪🇺🍽️</div>
+            <span>Общая</span>
+        </div>
+    </div>
+</div>
+    
+    <!-- Карусель с фотографиями -->
+    <div class="carousel-container" id="restaurantCarousel" style="display: none;">
+        <div class="carousel-inner"></div>
+        <button class="carousel-prev">◀</button>
+        <button class="carousel-next">▶</button>
+        <div class="carousel-dots"></div>
+    </div>
+    
+
+    
+    <button class="criteria-select-btn" data-option="restaurant">Выбрать</button>
+</div>
+                
+                <!-- Подарок -->
+                <div class="criteria-item" data-type="gift" id="criteriaGift">
+                    <h3>Подарок</h3>
+                    <p>Небольшой сюрприз, который тебя ждёт</p>
+                    
+                    <div class="carousel-container">
+                        <div class="carousel-inner">
+                            <div class="carousel-slide">
+                                <img src="image/gift1.jpg" alt="Сладкий сюрприз">
+                                <div class="carousel-caption">Сладкий сюрприз</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="image/gift2.jpg" alt="Мягкая игрушка">
+                                <div class="carousel-caption">Мягкая игрушка</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="image/gift3.jpg" alt="Цветы">
+                                <div class="carousel-caption">Цветы</div>
+                            </div>
+                        </div>
+                        <button class="carousel-prev">◀</button>
+                        <button class="carousel-next">▶</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                    
+                    <button class="criteria-select-btn" data-option="gift">Выбрать</button>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+        <!-- Окно подтверждения выбора -->
+    <section class="confirmation-screen" id="confirmationScreen">
+        <div class="confirmation-card">
+            <div class="confirmation-icon" id="confirmationIcon">💖✨</div>
+            <h2 id="confirmationTitle">Отлично! Ты выбрала:</h2>
+            <div class="confirmation-badge" id="confirmationBadge"></div>
+            <button class="confirmation-btn" id="confirmationCloseBtn">💫 Продолжить 💫</button>
+        </div>
+    </section>
+
+    <!-- Финальный экран -->
+    <section class="final-screen" id="finalScreen" style="display: none;">
+        <div class="final-card">
+            <div class="final-icon">💖</div>
+            <h2>Свидание подтверждено</h2>
+            <p>Осталось только выбрать дату и место нашей встречи ✨</p>
+            <button id="finalBtn" class="final-btn" type="button">Вперед!</button>
+        </div>
+    </section>
+
+    <!-- Экран выбора даты -->
+    <section class="date-screen" id="dateScreen" style="display: none;">
+        <div class="date-card">
+            <div class="date-icon">📅💖</div>
+            <h2>Выбери дату свидания</h2>
+            <p>Отметь день, который станет особенным ✨</p>
+            
+            <div class="native-date-container">
+                <input type="date" id="nativeDatePicker" class="native-date-picker">
+            </div>
+            
+            <div class="selected-date-display" id="selectedDateDisplay" style="display: none;">
+                📅 Выбрана дата: <span id="selectedDateText"></span>
+            </div>
+            
+            <button class="date-next-btn" id="dateNextBtn" disabled>Далее</button>
+        </div>
+    </section>
+
+            <!-- ФИНАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ (все выбранные опции) -->
+    <section class="final-summary-screen" id="finalSummaryScreen" style="display: none;">
+        <div class="final-summary-card">
+            <div class="final-summary-icon">💖✨🎉✨💖</div>
+            <h2>Свидание собрано!</h2>
+            <p class="final-summary-subtitle">Твой выбор — наш план ✨</p>
+            
+            <div class="final-summary-content">
+                <div class="summary-item">
+                    <div class="summary-icon">🚶‍♀️</div>
+                    <div class="summary-text">
+                        <div class="summary-label">Место прогулки</div>
+                        <div class="summary-value" id="finalWalkValue">—</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">🍽️</div>
+                    <div class="summary-text">
+                        <div class="summary-label">Ресторан / Блюдо</div>
+                        <div class="summary-value" id="finalRestaurantValue">—</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">🎁</div>
+                    <div class="summary-text">
+                        <div class="summary-label">Подарок</div>
+                        <div class="summary-value" id="finalGiftValue">—</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">📅</div>
+                    <div class="summary-text">
+                        <div class="summary-label">Дата свидания</div>
+                        <div class="summary-value" id="finalDateValue">—</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="final-summary-close-btn" id="finalSummaryCloseBtn">💫 Завершить 💫</button>
+            <div class="final-summary-status" id="finalSummaryStatus" style="display: none;"></div>
+        </div>
+    </section>
+
+
+    <!-- Профильная карточка разработчика (изначально скрыта) -->
+    <div class="developer-card" id="developerCard" style="display: none;">
+        <div class="developer-card-inner">
+            <div class="developer-avatar">
+                <img src="image/icon.jpg" alt="Developer" class="developer-img">
+                <div class="developer-avatar-glow"></div>
+            </div>
+            
+            <div class="developer-info">
+                <h3 class="developer-name">Сайт делал: <span>Твой любимый 💖</span></h3>
+            </div>
+            
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
