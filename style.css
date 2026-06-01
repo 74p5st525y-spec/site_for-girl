@@ -2038,3 +2038,41 @@ h1:hover, h2:hover, h3:hover {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
+/* Для экранов меньше 768px (ноутбуки, планшеты) */
+@media (max-width: 768px) {
+    /* Контейнер с ресторанами */
+    .restaurant-list,
+    .restaurant-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* Кнопки выбора ресторана */
+    .restaurant-btn,
+    .restaurant-card {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+        font-size: 18px; /* Увеличиваем для удобства нажатия */
+    }
+    
+    /* Увеличиваем отступы для touch-экранов */
+    button, a, .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Для совсем маленьких экранов (телефоны) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .restaurant-btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
