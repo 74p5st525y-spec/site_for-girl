@@ -2039,40 +2039,106 @@ h1:hover, h2:hover, h3:hover {
     to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Для экранов меньше 768px (ноутбуки, планшеты) */
+/* СПЕЦИАЛЬНО ДЛЯ НОУТБУКОВ (1366px и меньше) */
+@media (max-width: 1366px) {
+    .criteria-card {
+        padding: 25px 20px;
+        margin: 0 15px;
+    }
+    
+    .criteria-options {
+        gap: 15px;
+    }
+    
+    .criteria-item {
+        min-width: 180px;
+        max-width: 240px;
+        padding: 15px 12px;
+    }
+    
+    .criteria-item:hover {
+        min-width: 260px;
+        max-width: 400px;
+        flex: 2.5;
+    }
+    
+    .criteria-item h3 {
+        font-size: 1.2rem;
+    }
+    
+    .criteria-item p {
+        font-size: 0.75rem;
+    }
+    
+    .criteria-select-btn {
+        padding: 6px 15px;
+        font-size: 0.8rem;
+    }
+    
+    .criteria-icon-small {
+        font-size: 2.2rem;
+    }
+    
+    .carousel-slide img {
+        height: 160px !important;
+    }
+}
+
+/* ДЛЯ ЭКРАНОВ 1200px */
+@media (max-width: 1200px) {
+    .criteria-card h2 {
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+    }
+    
+    .criteria-item {
+        min-width: 160px;
+        max-width: 220px;
+    }
+    
+    .criteria-item:hover {
+        min-width: 240px;
+        max-width: 360px;
+        flex: 2;
+    }
+}
+
+/* ДЛЯ ПЛАНШЕТОВ */
+@media (max-width: 992px) {
+    .criteria-options {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .criteria-item {
+        width: calc(33.33% - 20px);
+        min-width: 200px;
+        max-width: none;
+    }
+    
+    .criteria-item:hover {
+        flex: none;
+        width: auto;
+        min-width: 280px;
+    }
+}
+
+/* ДЛЯ МОБИЛЬНЫХ */
 @media (max-width: 768px) {
-    /* Контейнер с ресторанами */
-    .restaurant-list,
-    .restaurant-grid {
-        display: flex;
+    .criteria-options {
         flex-direction: column;
         align-items: center;
     }
     
-    /* Кнопки выбора ресторана */
-    .restaurant-btn,
-    .restaurant-card {
+    .criteria-item {
         width: 100%;
-        margin: 10px 0;
-        padding: 15px;
-        font-size: 18px; /* Увеличиваем для удобства нажатия */
+        max-width: 320px;
     }
     
-    /* Увеличиваем отступы для touch-экранов */
-    button, a, .clickable {
-        min-height: 44px;
-        min-width: 44px;
-    }
-}
-
-/* Для совсем маленьких экранов (телефоны) */
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-    
-    .restaurant-btn {
-        font-size: 16px;
-        padding: 12px;
+    .criteria-item:hover {
+        width: 100%;
+        max-width: 100%;
+        min-width: auto;
+        flex: none;
     }
 }
