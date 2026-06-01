@@ -2181,3 +2181,339 @@ h1:hover, h2:hover, h3:hover {
         flex: none;
     }
 }
+
+/* =====================================================
+   ДОПОЛНИТЕЛЬНАЯ АДАПТАЦИЯ ДЛЯ ВЫБОРА РЕСТОРАНА
+   ===================================================== */
+
+/* Улучшенная адаптация для ноутбуков (1366x768 и меньше) */
+@media (max-width: 1366px) and (min-width: 769px) {
+    /* Контейнер критериев */
+    .criteria-card {
+        padding: 20px 15px !important;
+        margin: 0 10px !important;
+        border-radius: 40px !important;
+    }
+    
+    /* Карточки ресторанов в ряд, но компактнее */
+    .criteria-options {
+        gap: 12px !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        padding-bottom: 10px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Прокрутка для карточек на ноутбуке с маленьким экраном */
+    .criteria-options::-webkit-scrollbar {
+        height: 4px;
+    }
+    .criteria-options::-webkit-scrollbar-track {
+        background: rgba(255, 200, 120, 0.1);
+        border-radius: 10px;
+    }
+    .criteria-options::-webkit-scrollbar-thumb {
+        background: #ffb35c;
+        border-radius: 10px;
+    }
+    
+    /* Базовый размер карточки */
+    .criteria-item {
+        min-width: 200px !important;
+        max-width: 240px !important;
+        flex: 0 0 auto !important;
+        padding: 12px 12px !important;
+    }
+    
+    /* При наведении расширяем, но без разрыва строки */
+    .criteria-item:hover {
+        min-width: 280px !important;
+        max-width: 320px !important;
+        flex: 0 0 auto !important;
+        transform: translateY(-5px) !important;
+    }
+    
+    /* Иконки компактнее */
+    .criteria-icon-small {
+        font-size: 2rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    /* Заголовок */
+    .criteria-item h3 {
+        font-size: 1rem !important;
+        margin-bottom: 4px !important;
+    }
+    
+    /* Текст описания */
+    .criteria-item p {
+        font-size: 0.7rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    /* Кнопка выбора */
+    .criteria-select-btn {
+        padding: 5px 12px !important;
+        font-size: 0.7rem !important;
+        margin-top: 5px !important;
+    }
+    
+    /* Карусель с фото */
+    .criteria-item .carousel-slide img {
+        height: 120px !important;
+        border-radius: 15px !important;
+    }
+    
+    .criteria-item .carousel-caption {
+        font-size: 0.7rem !important;
+    }
+    
+    /* Кухни (кнопки выбора типа кухни) */
+    .kitchen-options {
+        gap: 6px !important;
+    }
+    
+    .kitchen-option {
+        min-width: 60px !important;
+        padding: 5px 8px !important;
+    }
+    
+    .kitchen-icon {
+        font-size: 1.2rem !important;
+    }
+    
+    .kitchen-option span {
+        font-size: 0.65rem !important;
+    }
+}
+
+/* Для телефонов (до 768px) — вертикальное расположение с удобными кнопками */
+@media (max-width: 768px) {
+    /* Контейнер критериев */
+    .criteria-card {
+        padding: 20px 15px !important;
+        margin: 0 10px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+    }
+    
+    /* Заголовок */
+    .criteria-card h2 {
+        font-size: 1.3rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    /* Карточки — вертикально */
+    .criteria-options {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
+    }
+    
+    /* Каждая карточка на всю ширину */
+    .criteria-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: auto !important;
+        flex: none !important;
+        padding: 18px 15px !important;
+        border-radius: 35px !important;
+    }
+    
+    /* При наведении не расширяем по ширине, только немного приподнимаем */
+    .criteria-item:hover {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important;
+        transform: translateY(-4px) !important;
+    }
+    
+    /* Иконка крупнее для пальцев */
+    .criteria-icon-small {
+        font-size: 2.5rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    /* Заголовок */
+    .criteria-item h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 6px !important;
+    }
+    
+    /* Текст */
+    .criteria-item p {
+        font-size: 0.8rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    /* Кнопка выбора — удобная для нажатия пальцем */
+    .criteria-select-btn {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+        min-height: 44px !important;
+        border-radius: 30px !important;
+    }
+    
+    /* Карусель */
+    .criteria-item .carousel-slide img {
+        height: 180px !important;
+        border-radius: 20px !important;
+    }
+    
+    .criteria-item .carousel-caption {
+        font-size: 0.8rem !important;
+        margin-top: 8px !important;
+    }
+    
+    /* Кнопки навигации карусели */
+    .criteria-item .carousel-prev,
+    .criteria-item .carousel-next {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1rem !important;
+    }
+    
+    /* Контейнер выбора кухни */
+    .criteria-item[data-type="restaurant"]:hover .kitchen-choice-container,
+    .kitchen-choice-container {
+        max-height: 280px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: 15px !important;
+        padding: 12px !important;
+    }
+    
+    /* Кнопки кухни — сетка для удобного выбора */
+    .kitchen-options {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)) !important;
+        gap: 10px !important;
+    }
+    
+    .kitchen-option {
+        padding: 10px 8px !important;
+        min-width: auto !important;
+        border-radius: 35px !important;
+    }
+    
+    .kitchen-icon {
+        font-size: 1.5rem !important;
+    }
+    
+    .kitchen-option span {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* Для очень маленьких телефонов (до 480px) */
+@media (max-width: 480px) {
+    .criteria-card {
+        padding: 15px 12px !important;
+    }
+    
+    .criteria-card h2 {
+        font-size: 1.1rem !important;
+    }
+    
+    .criteria-item {
+        padding: 14px 12px !important;
+    }
+    
+    .criteria-icon-small {
+        font-size: 2rem !important;
+    }
+    
+    .criteria-item h3 {
+        font-size: 1rem !important;
+    }
+    
+    .criteria-item p {
+        font-size: 0.7rem !important;
+    }
+    
+    .criteria-select-btn {
+        padding: 8px 16px !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .criteria-item .carousel-slide img {
+        height: 140px !important;
+    }
+    
+    .kitchen-options {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .kitchen-option {
+        padding: 8px 5px !important;
+    }
+    
+    .kitchen-icon {
+        font-size: 1.3rem !important;
+    }
+    
+    .kitchen-option span {
+        font-size: 0.65rem !important;
+    }
+}
+
+/* Убираем затемнение на мобильных — оно мешает */
+@media (max-width: 768px) {
+    .criteria-options:has(.criteria-item:hover) .criteria-item:not(:hover) {
+        filter: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Делаем так, чтобы на телефоне выбор ресторана был кликабельным и видимым */
+@media (max-width: 768px) {
+    /* Убираем hover-эффекты, которые мешают на тач-экранах */
+    .criteria-item .carousel-container {
+        max-height: 280px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: 15px !important;
+    }
+    
+    /* Показываем кнопки карусели всегда на телефоне */
+    .criteria-item .carousel-prev,
+    .criteria-item .carousel-next {
+        opacity: 0.7 !important;
+    }
+    
+    /* Показываем точки карусели */
+    .criteria-item .carousel-dots {
+        opacity: 1 !important;
+    }
+    
+    /* Увеличиваем область нажатия на карточке */
+    .criteria-item {
+        cursor: pointer !important;
+    }
+    
+    /* Добавляем индикатор, что карточку можно нажать */
+    .criteria-item:active {
+        transform: scale(0.99) !important;
+        transition: transform 0.05s !important;
+    }
+}
+
+/* Для ноутбуков с тач-экраном (гибридные) */
+@media (hover: none) and (max-width: 1366px) {
+    .criteria-options {
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+    }
+    
+    .criteria-item {
+        scroll-snap-align: start !important;
+    }
+    
+    .criteria-item .carousel-container {
+        max-height: 200px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
